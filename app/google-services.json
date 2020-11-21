@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "526917693411",
+    "firebase_url": "https://te-seminar.firebaseio.com",
+    "project_id": "te-seminar",
+    "storage_bucket": "te-seminar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526917693411:android:10519791053673d93cbad6",
+        "android_client_info": {
+          "package_name": "com.somanibrothersservices.pictteseminarallocation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526917693411-5i83cbth2l4ocvsrqb218dgeglbojg51.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWokXn1dYA3elJPCmpIe3oGka-fefo2Dg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526917693411-5i83cbth2l4ocvsrqb218dgeglbojg51.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
