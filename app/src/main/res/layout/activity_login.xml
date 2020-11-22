@@ -6,39 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="187dp"
+        android:layout_height="82dp"
+        android:buttonTint="#574141"
+        android:checked="false"
+        android:fontFamily="@font/alegreya_sans_sc_bold_italic"
+        android:showText="false"
+        android:splitTrack="false"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Student               "
+        android:textOff="Student"
+        android:textOn="Teacher"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:thumbTint="#3CE83F"
+        android:thumbTintMode="src_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.368"
+        tools:checked="false" />
+
+    <Button
+        android:id="@+id/nextBtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#3CE83F"
+        android:text="Next"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.617"
+        />
+
+
     <Button
         android:id="@+id/nextBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#0B100F"
 
+        android:strokeColor="#F1E3E3"
         android:text="Next "
-        android:textColor="#FFFFFF"
 
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.629"
-        android:strokeColor="#F1E3E3" />
+        app:layout_constraintVertical_bias="0.638" />
 
     <EditText
         android:id="@+id/registrationId"
         android:layout_width="329dp"
         android:layout_height="63dp"
         android:layout_marginEnd="4dp"
+        android:backgroundTint="@android:color/darker_gray"
         android:ems="10"
         android:hint="Registration ID"
         android:inputType="textPersonName"
         android:textColor="#100F0F"
         android:textColorHint="@android:color/darker_gray"
-        android:backgroundTint="@android:color/darker_gray"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.299" />
+
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_width="329dp"
+        android:layout_height="63dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#100F0F"
+        android:textColorHint="@android:color/darker_gray"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -53,39 +114,22 @@
         app:layout_constraintTop_toBottomOf="@+id/nextBtn"
         app:layout_constraintVertical_bias="0.317" />
 
-
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textLogin"
+        android:layout_width="133dp"
+        android:layout_height="44dp"
         android:text="LOGIN"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#171616"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.091" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="329dp"
-        android:layout_height="63dp"
-        android:ems="10"
-        android:hint="Password"
-        android:textColorHint="@android:color/darker_gray"
-        android:inputType="textPassword"
-        android:textColor="#100F0F"
-        android:backgroundTint="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.433" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
