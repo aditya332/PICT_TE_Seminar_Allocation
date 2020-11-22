@@ -2,6 +2,7 @@ package com.somanibrothersservices.pictteseminarallocation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,11 +10,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
-    Button nextbtn, nextbtn1;
+    Button loginbtn;
     Switch mSwitch;
     EditText mRegID, mPassword;
 
@@ -23,8 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         progressBar = findViewById(R.id.progressBar);
-        nextbtn = findViewById(R.id.nextBtn);
-        nextbtn1 = findViewById(R.id.nextBtn1);
+        loginbtn = findViewById(R.id.loginBtn);
+
         mSwitch = findViewById(R.id.switch1);
         mRegID = findViewById(R.id.registrationId);
         mPassword = findViewById(R.id.editPassword);
@@ -34,28 +36,22 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(mSwitch.isChecked()){
                     mSwitch.setText("Teacher");
+                    mRegID.setHint("Teacher's ID");
                 } else{
                     mSwitch.setText("Student");
+                    mRegID.setHint("Registration ID");
                 }
 
             }
         });
 
-        nextbtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSwitch.setVisibility(View.INVISIBLE);
-                nextbtn1.setVisibility(View.INVISIBLE);
-                mRegID.setVisibility(View.VISIBLE);
-                mPassword.setVisibility(View.VISIBLE);
-                nextbtn.setVisibility(View.VISIBLE);
-            }
-        });
 
-        nextbtn.setOnClickListener(new View.OnClickListener() {
+        loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
             }
         });
 
