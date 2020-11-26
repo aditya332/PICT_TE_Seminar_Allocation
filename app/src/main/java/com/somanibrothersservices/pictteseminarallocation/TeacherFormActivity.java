@@ -1,5 +1,6 @@
 package com.somanibrothersservices.pictteseminarallocation;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,6 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.List;
+
+import static com.somanibrothersservices.pictteseminarallocation.LoginActivity.YEAR;
+
 public class TeacherFormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     @Override
@@ -16,13 +26,24 @@ public class TeacherFormActivity extends AppCompatActivity implements AdapterVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_form);
 
-        String[] domain = {"D1","D2","D3"};
+        FirebaseFirestore.getInstance().collection(YEAR+"-"+(YEAR+1-2000)).document("DOMAINS").get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            String[] domain = ((List<String>) task.getResult().get("domain_list")).toArray(new String[0]);
 
-        Spinner dropdown1 = findViewById(R.id.spinner1);
+                            Spinner dropdown1 = findViewById(R.id.spinner1);
 
-        ArrayAdapter<String> dom = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, domain);
-        dropdown1.setAdapter(dom);
-        dropdown1.setOnItemSelectedListener(this);
+                            ArrayAdapter<String> dom = new ArrayAdapter<String>(TeacherFormActivity.this, android.R.layout.simple_spinner_dropdown_item, domain);
+                            dropdown1.setAdapter(dom);
+                            dropdown1.setOnItemSelectedListener(TeacherFormActivity.this);
+                        } else {
+                            Toast.makeText(TeacherFormActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
 
     }
     @Override
