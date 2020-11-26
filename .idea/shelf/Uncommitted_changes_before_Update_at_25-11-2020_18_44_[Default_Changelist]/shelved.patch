@@ -1,0 +1,259 @@
+Index: app/src/main/java/com/somanibrothersservices/pictteseminarallocation/StudentFormActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.somanibrothersservices.pictteseminarallocation;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.os.Bundle;\r\n\r\npublic class StudentFormActivity extends AppCompatActivity {\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_student_form);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/somanibrothersservices/pictteseminarallocation/StudentFormActivity.java	(revision 88da71e8a2735596bb44d98343337300bfd46bc2)
++++ app/src/main/java/com/somanibrothersservices/pictteseminarallocation/StudentFormActivity.java	(date 1606108515137)
+@@ -3,12 +3,120 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ import android.os.Bundle;
++import android.text.Editable;
++import android.text.TextWatcher;
++import android.view.View;
++import android.widget.ArrayAdapter;
++import android.widget.AutoCompleteTextView;
++import android.widget.TextView;
+ 
+ public class StudentFormActivity extends AppCompatActivity {
++    String[] domain = {"D1","D2","D3"};
++    String[] subDomain1 = {"D1S1","D1S2","D1S3"};
++    String[] subDomain2 = {"D2S1","D2S2","D2S3"};
++    String[] subDomain3 = {"D3S1","D3S2","D3S3"};
++    ArrayAdapter<String> adapterDomain=null;
++    ArrayAdapter<String> adapterSubDomain=null;
++    AutoCompleteTextView domainTextView = null;
++    AutoCompleteTextView subDomainTextView = null;
++    TextView name = null;
++    TextView emailID = null;
+ 
++    public void submit(View view)
++    {
++        boolean checkAutoComplete=false;
++        if(name.getText().toString().isEmpty())
++        {
++            name.setError("Required!");
++        }
++        if(emailID.getText().toString().isEmpty())
++        {
++            emailID.setError("Required!");
++        }
++        for(String d:domain)
++        {
++            if(domainTextView.getText().toString().equals(d))
++            {
++                checkAutoComplete=true;
++            }
++        }
++        if(!checkAutoComplete)
++        {
++            domainTextView.setError("Not Available!");
++        }
++        checkAutoComplete=false;
++        for(String d:subDomain1)
++        {
++            if(subDomainTextView.getText().toString().equals(d))
++            {
++                checkAutoComplete=true;
++            }
++        }
++        for(String d:subDomain2)
++        {
++            if(subDomainTextView.getText().toString().equals(d))
++            {
++                checkAutoComplete=true;
++            }
++        }
++        for(String d:subDomain3)
++        {
++            if(subDomainTextView.getText().toString().equals(d))
++            {
++                checkAutoComplete=true;
++            }
++        }
++        if(!checkAutoComplete)
++        {
++            subDomainTextView.setError("Not Available!");
++        }
++    }
++    private void setArrayAdapter(String[] subDomain)
++    {
++        adapterSubDomain=new ArrayAdapter<String>
++                (this,android.R.layout.select_dialog_item,subDomain);
++    }
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_student_form);
++
++        domainTextView =  (AutoCompleteTextView)findViewById(R.id.domainAutoCompleteTextView);
++        subDomainTextView =  (AutoCompleteTextView)findViewById(R.id.subDomainAutoCompleteTextView);
++        name = (TextView)findViewById(R.id.nameEditTextView);
++        emailID = (TextView)findViewById(R.id.emailIDEditTextView);
++
++        adapterDomain = new ArrayAdapter<String>
++                (this,android.R.layout.select_dialog_item,domain);
++
++        domainTextView.setAdapter(adapterDomain);
++
++        domainTextView.addTextChangedListener(new TextWatcher() {
++            @Override
++            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
++
++            }
++
++            @Override
++            public void onTextChanged(CharSequence s, int start, int before, int count) {
++                if(domainTextView.getText().toString().equals("D1"))
++                {
++                    setArrayAdapter(subDomain1);
++                }
++                else if(domainTextView.getText().toString().equals("D2"))
++                {
++                    setArrayAdapter(subDomain2);
++                }
++                else if(domainTextView.getText().toString().equals("D3"))
++                {
++                    setArrayAdapter(subDomain3);
++                }
++                subDomainTextView.setAdapter(adapterSubDomain);
++            }
++            @Override
++            public void afterTextChanged(Editable s) {
++            }
++        });
+     }
++
+ }
+Index: app/src/main/res/layout/activity_student_form.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".StudentFormActivity\">\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_student_form.xml	(revision 88da71e8a2735596bb44d98343337300bfd46bc2)
++++ app/src/main/res/layout/activity_student_form.xml	(date 1606109126202)
+@@ -6,4 +6,99 @@
+     android:layout_height="match_parent"
+     tools:context=".StudentFormActivity">
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
++    <TextView
++        android:id="@+id/textView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="66dp"
++        android:layout_marginLeft="66dp"
++        android:layout_marginTop="35dp"
++        android:layout_marginEnd="66dp"
++        android:layout_marginRight="66dp"
++        android:fontFamily="sans-serif-black"
++        android:text="SELECT DOMAIN"
++        android:textSize="36sp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <EditText
++        android:id="@+id/nameEditTextView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="100dp"
++        android:layout_marginLeft="100dp"
++        android:layout_marginTop="80dp"
++        android:layout_marginEnd="100dp"
++        android:layout_marginRight="100dp"
++        android:ems="10"
++        android:hint="Name"
++        android:inputType="textPersonName"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/textView" />
++
++    <EditText
++        android:id="@+id/emailIDEditTextView"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="100dp"
++        android:layout_marginLeft="100dp"
++        android:layout_marginTop="36dp"
++        android:layout_marginEnd="100dp"
++        android:layout_marginRight="100dp"
++        android:ems="10"
++        android:hint="Email ID"
++        android:inputType="textEmailAddress"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="1.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/nameEditTextView" />
++
++    <AutoCompleteTextView
++        android:id="@+id/domainAutoCompleteTextView"
++        android:layout_width="218dp"
++        android:layout_height="45dp"
++        android:layout_marginStart="100dp"
++        android:layout_marginLeft="100dp"
++        android:layout_marginTop="90dp"
++        android:layout_marginEnd="100dp"
++        android:layout_marginRight="100dp"
++        android:completionThreshold="1"
++        android:hint="Domain"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/emailIDEditTextView" />
++
++    <AutoCompleteTextView
++        android:id="@+id/subDomainAutoCompleteTextView"
++        android:layout_width="218dp"
++        android:layout_height="45dp"
++        android:layout_marginStart="100dp"
++        android:layout_marginLeft="100dp"
++        android:layout_marginTop="40dp"
++        android:layout_marginEnd="100dp"
++        android:layout_marginRight="100dp"
++        android:completionThreshold="1"
++        android:hint="Sub-Domain"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/domainAutoCompleteTextView" />
++
++    <Button
++        android:id="@+id/button"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="161dp"
++        android:layout_marginLeft="161dp"
++        android:layout_marginTop="59dp"
++        android:layout_marginEnd="157dp"
++        android:layout_marginRight="157dp"
++        android:onClick="submit"
++        android:text="Submit"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/subDomainAutoCompleteTextView" /></androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/somanibrothersservices/pictteseminarallocation/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.somanibrothersservices.pictteseminarallocation;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.ProgressBar;\r\nimport android.widget.Switch;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\npublic class LoginActivity extends AppCompatActivity {\r\n\r\n    ProgressBar progressBar;\r\n    Button loginbtn;\r\n    Switch mSwitch;\r\n    EditText mRegID, mPassword;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_login);\r\n\r\n        progressBar = findViewById(R.id.progressBar);\r\n        loginbtn = findViewById(R.id.loginBtn);\r\n\r\n        mSwitch = findViewById(R.id.switch1);\r\n        mRegID = findViewById(R.id.registrationId);\r\n        mPassword = findViewById(R.id.editPassword);\r\n\r\n        mSwitch.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                if(mSwitch.isChecked()){\r\n                    mSwitch.setText(\"Teacher\");\r\n                    mRegID.setHint(\"Teacher's ID\");\r\n                } else{\r\n                    mSwitch.setText(\"Student\");\r\n                    mRegID.setHint(\"Registration ID\");\r\n                }\r\n\r\n            }\r\n        });\r\n\r\n\r\n        loginbtn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                progressBar.setVisibility(View.VISIBLE);\r\n//                startActivity(new Intent(getApplicationContext(), MainActivity.class));\r\n//                Toast.makeText(LoginActivity.this, \"Logged in Successfully\", Toast.LENGTH_SHORT).show();\r\n            }\r\n        });\r\n\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/somanibrothersservices/pictteseminarallocation/LoginActivity.java	(revision 88da71e8a2735596bb44d98343337300bfd46bc2)
++++ app/src/main/java/com/somanibrothersservices/pictteseminarallocation/LoginActivity.java	(date 1606060245797)
+@@ -41,7 +41,6 @@
+                     mSwitch.setText("Student");
+                     mRegID.setHint("Registration ID");
+                 }
+-
+             }
+         });
+ 
