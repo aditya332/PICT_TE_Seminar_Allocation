@@ -1,8 +1,10 @@
+
 package com.somanibrothersservices.pictteseminarallocation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,8 +20,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static com.somanibrothersservices.pictteseminarallocation.LoginActivity.REC_ID;
 import static com.somanibrothersservices.pictteseminarallocation.LoginActivity.YEAR;
 
 public class TeacherFormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -40,7 +45,7 @@ public class TeacherFormActivity extends AppCompatActivity implements AdapterVie
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<String> d = new ArrayList<>();
-                            d.add("Select");
+//                            d.add("Select");
                             for (DocumentSnapshot documentSnapshot : task.getResult()) {
                                 d.add(documentSnapshot.getId().toString());
                             }
@@ -95,5 +100,29 @@ public class TeacherFormActivity extends AppCompatActivity implements AdapterVie
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         Toast.makeText(this, "Domain not selected", Toast.LENGTH_LONG).show();
+    }
+
+    public void onClickSubmitTeacher(View view) {
+        Spinner dropdown1 = findViewById(R.id.spinner1);
+        Spinner dropdown2 = findViewById(R.id.spinner2);
+        Map<String , Object> domainMap = new HashMap<>();
+        domainMap.put("name",dropdown1.getSelectedItem().toString());
+        domainMap.put("sub",dropdown2.getSelectedItem().toString());
+        List<Map<String , Object>> domainArray = new ArrayList<>();
+        domainArray.add(domainMap);
+        Map<String , Object> map = new HashMap<>();
+        map.put("domain",domainArray);
+        firebaseFirestore.collection(YEAR+"-"+(YEAR+1-2000)+"/TEACHERS/TEACHERS").document(REC_ID)
+                .update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(TeacherFormActivity.this, "Form Filled :)", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(TeacherFormActivity.this , LoginActivity.class));
+                } else {
+                    Toast.makeText(TeacherFormActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

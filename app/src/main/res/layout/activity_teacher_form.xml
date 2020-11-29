@@ -16,6 +16,7 @@
         android:layout_marginBottom="120dp"
         android:backgroundTintMode="src_over"
         android:text="Submit"
+        android:onClick="onClickSubmitTeacher"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

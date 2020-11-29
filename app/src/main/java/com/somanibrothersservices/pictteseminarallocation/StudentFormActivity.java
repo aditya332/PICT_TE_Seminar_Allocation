@@ -3,6 +3,7 @@ package com.somanibrothersservices.pictteseminarallocation;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,82 +23,95 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static com.somanibrothersservices.pictteseminarallocation.LoginActivity.REC_ID;
 import static com.somanibrothersservices.pictteseminarallocation.LoginActivity.YEAR;
 
 public class StudentFormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] domain;
     String[] subDomain ;
-    ArrayAdapter<String> adapterDomain=null;
-    ArrayAdapter<String> adapterSubDomain=null;
-    AutoCompleteTextView domainTextView = null;
-    AutoCompleteTextView subDomainTextView = null;
     TextView name = null;
     TextView emailID = null;
     private FirebaseFirestore firebaseFirestore;
 
     public void submit(View view)
     {
-        boolean checkAutoComplete=false;
+//        boolean checkAutoComplete=false;
         boolean checkTextView=true;
-        if(name.getText().toString().isEmpty())
-        {
+        if(name.getText().toString().isEmpty()) {
             name.setError("Required!");
             checkTextView=false;
         }
-        if(emailID.getText().toString().isEmpty())
-        {
+        if(emailID.getText().toString().isEmpty()) {
             emailID.setError("Required!");
             checkTextView=false;
         }
-        for(String d:domain)
-        {
-            if(domainTextView.getText().toString().equals(d))
-            {
-                checkAutoComplete=true;
-            }
-        }
-        if(!checkAutoComplete)
-        {
-            domainTextView.setError("Not Available!");
-        }
-        checkAutoComplete=false;
-        for(String d:subDomain)
-        {
-            if(subDomainTextView.getText().toString().equals(d))
-            {
-                checkAutoComplete=true;
-            }
-        }
-//        for(String d:subDomain2)
+//        for(String d:domain)
+//        {
+//            if(domainTextView.getText().toString().equals(d))
+//            {
+//                checkAutoComplete=true;
+//            }
+//        }
+//        if(!checkAutoComplete)
+//        {
+//            domainTextView.setError("Not Available!");
+//        }
+//        checkAutoComplete=false;
+//        for(String d:subDomain)
 //        {
 //            if(subDomainTextView.getText().toString().equals(d))
 //            {
 //                checkAutoComplete=true;
 //            }
 //        }
-//        for(String d:subDomain3)
+////        for(String d:subDomain2)
+////        {
+////            if(subDomainTextView.getText().toString().equals(d))
+////            {
+////                checkAutoComplete=true;
+////            }
+////        }
+////        for(String d:subDomain3)
+////        {
+////            if(subDomainTextView.getText().toString().equals(d))
+////            {
+////                checkAutoComplete=true;
+////            }
+////        }
+//        if(!checkAutoComplete)
 //        {
-//            if(subDomainTextView.getText().toString().equals(d))
-//            {
-//                checkAutoComplete=true;
-//            }
+//            subDomainTextView.setError("Not Available!");
 //        }
-        if(!checkAutoComplete)
-        {
-            subDomainTextView.setError("Not Available!");
-        }
-        if(checkAutoComplete && checkTextView)
-        {
-
+        if(/*checkAutoComplete &&*/ checkTextView) {
+            Spinner dropdown1 = findViewById(R.id.spinner3);
+            Spinner dropdown2 = findViewById(R.id.spinner4);
+            Map<String , Object> map = new HashMap<>();
+            map.put("domain" , dropdown1.getSelectedItem().toString());
+            map.put("subDomain" , dropdown2.getSelectedItem().toString());
+            map.put("assigned" , false);
+            firebaseFirestore.collection(YEAR+"-"+(YEAR+1-2000)+"/STUDENTS/STUDENTS").document(REC_ID).update(map)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(StudentFormActivity.this, "Form filled :)", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(StudentFormActivity.this , LoginActivity.class));
+                            } else {
+                                Toast.makeText(StudentFormActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }
     }
-    private void setArrayAdapter(String[] subDomain)
-    {
-        adapterSubDomain=new ArrayAdapter<String>
-                (this,android.R.layout.select_dialog_item,subDomain);
-    }
+//    private void setArrayAdapter(String[] subDomain)
+//    {
+//        adapterSubDomain=new ArrayAdapter<String>
+//                (this,android.R.layout.select_dialog_item,subDomain);
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -76,9 +76,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 DocumentReference dRef;
                 if (mSwitch.isChecked()) {
+                    //**** replace mRegID.getText().toString() with regId at the time of launch
                     dRef = fStore.document(YEAR+"-"+(YEAR+1-2000)+"/TEACHERS/TEACHERS/"+mRegID.getText().toString());
+                    REC_ID = mRegID.getText().toString();
                 } else {
                     dRef = fStore.document(YEAR+"-"+(YEAR+1-2000)+"/STUDENTS/STUDENTS/"+regId);
+                    REC_ID = regId;
                 }
                 dRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -88,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                             firePass = document.getString("pass");
                             Log.d("TAG", "Document snapshot data: "+ document.getData());
                             if (pass.equals(firePass)) {
-                                REC_ID = regId;
                                 if (mSwitch.isChecked()) {
                                     startActivity(new Intent(getApplicationContext(), TeacherFormActivity.class));
                                 } else {
