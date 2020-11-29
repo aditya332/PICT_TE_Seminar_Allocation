@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     startActivity(new Intent(getApplicationContext(), StudentFormActivity.class));
                                 }
+                                finish();
                                 Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Login unsuccessful. Check Password", Toast.LENGTH_SHORT).show();

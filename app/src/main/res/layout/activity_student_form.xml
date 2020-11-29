@@ -56,51 +56,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEditTextView" />
 
-    <AutoCompleteTextView
-        android:id="@+id/domainAutoCompleteTextView"
-        android:layout_width="218dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:completionThreshold="1"
-        android:hint="Domain"
+    <Spinner
+        android:id="@+id/spinner4"
+        android:layout_width="173dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="25dp"
+        android:visibility="invisible"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailIDEditTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
 
-    <AutoCompleteTextView
-        android:id="@+id/subDomainAutoCompleteTextView"
-        android:layout_width="218dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:completionThreshold="1"
-        android:hint="Sub-Domain"
+    <Spinner
+        android:id="@+id/spinner3"
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:layout_width="173dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="24dp"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/domainAutoCompleteTextView" />
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="30dp"
+        android:text="SubDomain :"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinner4"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="30dp"
+        android:text="Domain :"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinner3"
+        app:layout_constraintTop_toBottomOf="@+id/emailIDEditTextView" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginLeft="161dp"
-        android:layout_marginTop="59dp"
         android:layout_marginEnd="157dp"
-        android:layout_marginRight="157dp"
+        android:layout_marginTop="30dp"
         android:onClick="submit"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subDomainAutoCompleteTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
