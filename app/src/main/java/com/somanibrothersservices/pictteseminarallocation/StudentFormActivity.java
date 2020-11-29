@@ -96,8 +96,6 @@ public class StudentFormActivity extends AppCompatActivity {
         name = (TextView)findViewById(R.id.nameEditTextView);
         emailID = (TextView)findViewById(R.id.emailIDEditTextView);
 
-        domainTextView.setAdapter(adapterDomain);
-
         domainTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -133,6 +131,7 @@ public class StudentFormActivity extends AppCompatActivity {
                             domain = ((List<String>) task.getResult().get("domain_list")).toArray(new String[0]);
                             adapterDomain = new ArrayAdapter<String>
                                     (StudentFormActivity.this,android.R.layout.select_dialog_item,domain);
+                            domainTextView.setAdapter(adapterDomain);
                         } else {
                             Toast.makeText(StudentFormActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
