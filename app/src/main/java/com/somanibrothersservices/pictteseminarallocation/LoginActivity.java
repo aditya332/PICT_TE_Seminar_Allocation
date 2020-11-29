@@ -2,6 +2,7 @@ package com.somanibrothersservices.pictteseminarallocation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(mSwitch.isChecked()){
-                    mSwitch.setText("Teacher");
+//                    mSwitch.setText("Teacher");
                     mRegID.setHint("Teacher's ID");
                 } else{
-                    mSwitch.setText("Student");
+//                    mSwitch.setText("Student");
                     mRegID.setHint("Registration ID");
                 }
             }
