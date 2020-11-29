@@ -44,8 +44,7 @@ public class StudentFormActivity extends AppCompatActivity {
         {
             emailID.setError("Required!");
         }
-        for(String d:domain)
-        {
+        for(String d:domain) {
             if(domainTextView.getText().toString().equals(d))
             {
                 checkAutoComplete=true;
