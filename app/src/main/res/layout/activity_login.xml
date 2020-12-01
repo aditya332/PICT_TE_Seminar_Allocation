@@ -7,21 +7,27 @@
     tools:context=".LoginActivity">
 
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="187dp"
-        android:layout_height="82dp"
-        android:buttonTint="#574141"
-        android:checked="false"
-        android:fontFamily="@font/alegreya_sans_sc_bold_italic"
-        android:showText="false"
-        android:splitTrack="false"
-        android:switchTextAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Student               "
-        android:textOff="Student"
-        android:textOn="Teacher"
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Teacher"
         android:textSize="28sp"
         android:textStyle="bold"
+        android:fontFamily="@font/alegreya_sans_sc_bold_italic"
+        app:layout_constraintBottom_toBottomOf="@+id/switch1"
+        app:layout_constraintStart_toEndOf="@+id/switch1"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="82dp"
+        android:buttonTint="#000"
+        android:checked="false"
+        android:showText="false"
+        android:splitTrack="false"
         android:thumbTint="#3CE83F"
         android:thumbTintMode="src_in"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,6 +36,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.248"
         tools:checked="false" />
+    <!--        android:text="Student               "-->
+    <!--        android:textOff="Student"-->
+    <!--        android:textOn="Teacher"-->
+    <!--        android:textSize="28sp"-->
+    <!--        android:textStyle="bold"-->
 
     <Button
         android:id="@+id/loginBtn"
@@ -110,6 +121,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.091" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Student"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/alegreya_sans_sc_bold_italic"
+        app:layout_constraintBottom_toBottomOf="@+id/switch1"
+        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toTopOf="@+id/switch1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.somanibrothersservices.pictteseminarallocation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,8 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     Button loginbtn;
     Switch mSwitch;
     EditText mRegID, mPassword;
-    private int year;
+    public static int YEAR;
     private String firePass, pass;
+    public static String REC_ID;
 
     FirebaseFirestore fStore;
 
@@ -40,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Calendar calendar = Calendar.getInstance();
-        year =calendar.get(Calendar.YEAR);
+        YEAR =calendar.get(Calendar.YEAR);
 
         progressBar = findViewById(R.id.progressBar);
         loginbtn = findViewById(R.id.loginBtn);
@@ -55,13 +57,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(mSwitch.isChecked()){
-                    mSwitch.setText("Teacher");
+//                    mSwitch.setText("Teacher");
                     mRegID.setHint("Teacher's ID");
                 } else{
-                    mSwitch.setText("Student");
+//                    mSwitch.setText("Student");
                     mRegID.setHint("Registration ID");
                 }
-
             }
         });
 
@@ -71,10 +72,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                String regId = mRegID.getText().toString().trim().toUpperCase();
+                final String regId = mRegID.getText().toString().trim().toUpperCase();
                 pass = mPassword.getText().toString();
 
-                DocumentReference dRef = fStore.document(year+"-"+(year+1-2000)+"/STUDENTS/STUDENTS/"+regId);
+                DocumentReference dRef;
+                if (mSwitch.isChecked()) {
+                    //**** replace mRegID.getText().toString() with regId at the time of launch
+                    dRef = fStore.document(YEAR+"-"+(YEAR+1-2000)+"/TEACHERS/TEACHERS/"+mRegID.getText().toString());
+                    REC_ID = mRegID.getText().toString();
+                } else {
+                    dRef = fStore.document(YEAR+"-"+(YEAR+1-2000)+"/STUDENTS/STUDENTS/"+regId);
+                    REC_ID = regId;
+                }
                 dRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -83,25 +92,24 @@ public class LoginActivity extends AppCompatActivity {
                             firePass = document.getString("pass");
                             Log.d("TAG", "Document snapshot data: "+ document.getData());
                             if (pass.equals(firePass)) {
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                if (mSwitch.isChecked()) {
+                                    startActivity(new Intent(getApplicationContext(), TeacherFormActivity.class));
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), StudentFormActivity.class));
+                                }
+                                finish();
                                 Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(LoginActivity.this, "Login unsuccessful. Check credentials", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Login unsuccessful. Check Password", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(LoginActivity.this, "RegistrationID doesn't exit.", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                             Log.d("TAG", "get failed with"+ task.getException());
                         }
                     }
                 });
-
-
-
             }
         });
-
-
-
-
     }
 }
