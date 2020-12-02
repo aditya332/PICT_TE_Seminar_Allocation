@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +43,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#323a43")));
+        getWindow().setStatusBarColor(Color.parseColor("#566573"));
+
         Calendar calendar = Calendar.getInstance();
         YEAR =calendar.get(Calendar.YEAR);
 

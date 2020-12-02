@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +38,9 @@ public class TeacherFormActivity extends AppCompatActivity implements AdapterVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_form);
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#323a43")));
+        getWindow().setStatusBarColor(Color.parseColor("#566573"));
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 

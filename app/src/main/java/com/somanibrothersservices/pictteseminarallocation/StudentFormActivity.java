@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +40,11 @@ public class StudentFormActivity extends AppCompatActivity implements AdapterVie
     String[] subDomain ;
     TextView name = null;
     TextView emailID = null;
+    TextView mEmail, mName, mRegid, mRoll, mteachassign, mtextview11;
+    ImageView mimg1, mimg2;
     private FirebaseFirestore firebaseFirestore;
+    Button myprofilebtn;
+    String name1, regid, email, roll, domain1, subd, teach;
 
     public void submit(View view)
     {
@@ -99,7 +108,8 @@ public class StudentFormActivity extends AppCompatActivity implements AdapterVie
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(StudentFormActivity.this, "Form filled :)", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(StudentFormActivity.this , LoginActivity.class));
+                                getAllDetails();
+                                //    startActivity(new Intent(StudentFormActivity.this , LoginActivity.class));
                             } else {
                                 Toast.makeText(StudentFormActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -116,6 +126,9 @@ public class StudentFormActivity extends AppCompatActivity implements AdapterVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_form);
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#323a43")));
+        getWindow().setStatusBarColor(Color.parseColor("#566573"));
 
         name = (TextView)findViewById(R.id.nameEditTextView);
         emailID = (TextView)findViewById(R.id.emailIDEditTextView);
@@ -144,6 +157,7 @@ public class StudentFormActivity extends AppCompatActivity implements AdapterVie
                         }
                     }
                 });
+        //checkifusernameexists();
 
 //        firebaseFirestore.collection(YEAR+"-"+(YEAR+1-2000)+"/DOMAINS/domain_list").get()
 //                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -205,6 +219,73 @@ public class StudentFormActivity extends AppCompatActivity implements AdapterVie
 //                        }
 //                    }
 //                });
+    }
+
+    void checkifusernameexists(){
+        firebaseFirestore.collection(YEAR+"-"+(YEAR+1-2000)+"/STUDENTS/STUDENTS").document(REC_ID)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        String name2 = doc.getString("name");
+                        String email2 = doc.getString("email");
+                        if(name2!=null && email2!=null){
+                            getAllDetails();
+                        } else {
+                            name.setVisibility(View.VISIBLE);
+                            emailID.setVisibility(View.VISIBLE);
+                        }
+                    } else{
+                        Log.d("TAG", "Document absent");
+                    }
+                }
+            }
+        });
+    }
+
+    void getAllDetails(){
+        firebaseFirestore.collection(YEAR+"-"+(YEAR+1-2000)+"/STUDENTS/STUDENTS").document(REC_ID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()){
+                                name1 = document.getString("name");
+                                regid = document.getString("id");
+                                email = document.getString("email");
+                                roll = document.getLong("roll").toString();
+                                domain1 = document.getString("domain");
+                                subd = document.getString("subDomain");
+                                teach = document.getString("teacherAssigned");
+                                Log.d("TAG", "Records fetched"+document.getString("email")+document.getData());
+
+                                name.setVisibility(View.INVISIBLE);
+                                emailID.setVisibility(View.INVISIBLE);
+
+                                mimg1.setVisibility(View.VISIBLE);
+                                mName.setVisibility(View.VISIBLE);
+                                mName.setText(name1);
+                                mimg2.setVisibility(View.VISIBLE);
+                                mEmail.setVisibility(View.VISIBLE);
+                                mEmail.setText(email);
+                                mRegid.setVisibility(View.VISIBLE);
+                                mRegid.setText(regid);
+                                mRoll.setVisibility(View.VISIBLE);
+                                mRoll.setText(roll);
+                                mtextview11.setVisibility(View.VISIBLE);
+                                mteachassign.setVisibility(View.VISIBLE);
+                                mteachassign.setText(teach);
+                            }
+                        } else{
+
+                            Log.d("TAG", "Error occurred!");
+                        }
+                    }
+                });
     }
 
     @Override
