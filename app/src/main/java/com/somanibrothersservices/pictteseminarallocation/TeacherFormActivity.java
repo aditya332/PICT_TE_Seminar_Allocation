@@ -63,6 +63,9 @@ public class TeacherFormActivity extends AppCompatActivity implements AdapterVie
                 });
 
     }
+
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         final Spinner dropdown2 = findViewById(R.id.spinner2);

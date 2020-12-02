@@ -256,9 +256,9 @@ public class StudentFormActivity extends AppCompatActivity implements AdapterVie
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-                            DocumentSnapshot document = task.getResult();
-                            if(document.exists()){
+                       if(task.isSuccessful()){
+                           DocumentSnapshot document = task.getResult();
+                           if(document.exists()){
                                 name1 = document.getString("name");
                                 regid = document.getString("id");
                                 email = document.getString("email");
